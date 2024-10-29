@@ -1,0 +1,25 @@
+---
+
+- name: install zsh
+  apt:
+    name: 
+      - zsh
+      - git
+    state: present
+  when: item.shell == "/bin/zsh"
+  with_items: "{{ users }}"
+
+- name: check if home directory exists
+  file:
+    path: "/home/{{ item.name }}"
+    state: directory
+  when: item.shell == "/bin/zsh"
+  with_items: "{{ users }}"
+
+- name: run ohmyzsh installation script
+  become_user: root
+  command: su -c "wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | bash" - {{ item.name }}
+  args:
+    creates: "/home/{{ item.name }}/.oh-my-zsh"
+  when: item.shell == "/bin/zsh"
+  with_items: "{{ users }}"

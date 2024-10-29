@@ -1,0 +1,28 @@
+---
+
+custom_groups:
+  - name: "developers"
+    state: "present"
+  - name: "devops"
+    state: "present"
+
+users:
+  - name: "user1"
+    shell: "/bin/bash"
+    state: "present"
+    password: "{{ 'password1' | password_hash('sha512') }}"
+    groups: "sudo,developers"
+    ssh_key: "ssh-rsa AAAAB3..."
+  - name: "user2"
+    shell: "/bin/sh"
+    state: "absent"
+    password: "{{ 'password2' | password_hash('sha512') }}"
+    groups: "devops"
+    ssh_key: "ssh-rsa AAAAB3..."
+  - name: "user3"
+    shell: "/bin/zsh"
+    state: "present"
+    password: "{{ 'password3' | password_hash('sha512') }}"
+    groups: "developers"
+    ssh_key: "ssh-rsa AAAAB3..."
+

@@ -1,0 +1,13 @@
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+LogLevel VERBOSE
+PermitRootLogin no
+PermitEmptyPasswords no
+KbdInteractiveAuthentication no
+UsePAM yes
+
+X11Forwarding no
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem	sftp	/usr/lib/openssh/sftp-server

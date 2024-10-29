@@ -1,0 +1,23 @@
+---
+
+- name: check if destination directory exists
+  file:
+    path: "{{ destination_path }}"
+    state: directory
+
+- name: check unzip is installed
+  apt:
+    name: unzip
+    state: present
+  become: yes
+
+- name: download zip archive
+  get_url:
+    url: "{{ zip_url }}"
+    dest: "/tmp/static_files.zip"
+
+- name: unzip the archive to nginx folder
+  unarchive:
+    src: "/tmp/static_files.zip"
+    dest: "{{ destination_path }}"
+    remote_src: yes

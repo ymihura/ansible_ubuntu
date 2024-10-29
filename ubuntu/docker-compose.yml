@@ -1,0 +1,17 @@
+networks:
+  internal:
+    name: internal
+services:
+  ubuntu:
+    container_name: ubuntu
+    build:
+      context: .
+      args: 
+        USER_PASSWORD: ${USER_PASSWORD}
+    image: local/ubuntu:24.04
+    restart: always
+    ports:
+      - "2222:22"
+      - "80:80"
+    networks:
+      - internal

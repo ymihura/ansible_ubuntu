@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  become: true
+  vars:
+    additional_packages:
+      - htop
+      - ncdu
+      - git
+      - nano
+
+  roles:
+    - user_management
+    - install_zsh
+    - ssh_config
+    - install_packages
+    - install_nginx
+    - sync_static
